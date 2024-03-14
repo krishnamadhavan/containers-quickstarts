@@ -27,7 +27,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: "jenkins-agent-npm:${SLAVE_IMAGE_TAG}"
+        name: "${NAME}:${SLAVE_IMAGE_TAG}"
     postCommit: {}
     resources: {}
     runPolicy: Serial
@@ -40,6 +40,10 @@ objects:
     strategy:
       dockerStrategy:
         dockerfilePath: "${DOCKERFILE_PATH}"
+        from:
+          kind: DockerImage
+          name: "${BUILDER_IMAGE_NAME}"
+          imagePullPolicy: Always
       type: Docker
     triggers:
     - type: ConfigChange
@@ -58,7 +62,7 @@ parameters:
   displayName: Git Reference
   description: Set this to a branch name, tag or other ref of your repository if you
     are not using the default (master) branch.
-  value: npm-agent
+  value: master
 - name: SOURCE_CONTEXT_DIR
   displayName: Git Context Directory
   description: Set this to the directory where the build information is (e.g. Dockerfile)
