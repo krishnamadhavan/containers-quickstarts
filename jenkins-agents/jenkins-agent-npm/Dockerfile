@@ -38,9 +38,7 @@ RUN dnf module enable -y nodejs:${NODEJS_VERSION} && \
     dnf install --nodocs -y nodejs && \
     dnf clean all && \
     npm install -g /tmp && \
-    chown root:root /home/jenkins -R && \
-    chmod 775 /home/jenkins/.config -R && \
-    chmod 775 /home/jenkins/.npm -R
+    chown root:root /home/jenkins -R
 
 COPY --from=builder /usr/local/bin/yq /usr/local/bin/yq
 COPY --from=builder /usr/local/bin/jq /usr/local/bin/jq
