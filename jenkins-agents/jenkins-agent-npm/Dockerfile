@@ -31,10 +31,14 @@ ENV NPM_CONFIG_PREFIX="$HOME/.npm-global" \
 USER root
 
 COPY package.json /tmp/package.json
+
 RUN dnf module enable -y nodejs:${NODEJS_VERSION} && \
     dnf install --nodocs -y nodejs && \
     dnf clean all && \
-    npm install -g /tmp
+    npm install -g /tmp && \
+    chown root:root /home/jenkins -R && \
+    chmod 775 /home/jenkins/.config -R && \
+    chmod 775 /home/jenkins/.npm -R
 
 COPY --from=builder /usr/local/bin/yq /usr/local/bin/yq
 COPY --from=builder /usr/local/bin/jq /usr/local/bin/jq

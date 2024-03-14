@@ -27,7 +27,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: "${NAME}:${SLAVE_IMAGE_TAG}"
+        name: "jenkins-agent-npm:${SLAVE_IMAGE_TAG}"
     postCommit: {}
     resources: {}
     runPolicy: Serial
@@ -40,10 +40,6 @@ objects:
     strategy:
       dockerStrategy:
         dockerfilePath: "${DOCKERFILE_PATH}"
-        from:
-          kind: DockerImage
-          name: "${BUILDER_IMAGE_NAME}"
-          imagePullPolicy: Always
       type: Docker
     triggers:
     - type: ConfigChange
@@ -57,12 +53,12 @@ parameters:
   displayName: Git Repository URL
   description: The URL of the repository with your application source code.
   required: true
-  value: https://github.com/redhat-cop/containers-quickstarts
+  value: https://github.com/krishnamadhavan/containers-quickstarts
 - name: SOURCE_REPOSITORY_REF
   displayName: Git Reference
   description: Set this to a branch name, tag or other ref of your repository if you
     are not using the default (master) branch.
-  value: master
+  value: npm-agent
 - name: SOURCE_CONTEXT_DIR
   displayName: Git Context Directory
   description: Set this to the directory where the build information is (e.g. Dockerfile)
