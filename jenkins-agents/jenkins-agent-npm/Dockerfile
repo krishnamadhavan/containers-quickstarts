@@ -32,8 +32,6 @@ USER root
 
 COPY package.json /tmp/package.json
 
-RUN mkdir /home/jenkins
-
 RUN dnf module enable -y nodejs:${NODEJS_VERSION} && \
     dnf install --nodocs -y nodejs && \
     dnf clean all && \
